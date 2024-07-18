@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'src/main.css' %}" />
+    <script defer src="{% static 'website/bootstrap.bundle.min.js' %}"></script>
+
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <link rel="stylesheet" href="{% static 'website/instyle.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Junge&family=Mea+Culpa&family=Monsieur+La+Doulaise&family=MonteCarlo&family=Passions+Conflict&family=WindSong:wght@400;500&display=swap" rel="stylesheet" />
+
+    <title>
+      {% block title %}
+        Best Aesthetics in Dubai
+      {% endblock %}
+    </title>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index' %}" id="brandlogo">R</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span><i class="bi bi-list h6 border-0"></i></span></button>
+
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav mx-auto">
+              <a class="nav-link" href="{% url 'index' %}#majorServices">Services</a>
+              <a class="nav-link" href="#footers">Contact</a>
+              <a class="nav-link" href="{% url 'booking' %}">Book now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group dropstart c-dropstart">
+          <button type="button" class="btn btn-dark dropdown-toggle bg-transparent border-0" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list h3"></i></button>
+          <ul class="dropdown-menu c-dropmenu">
+            {% if user.is_authenticated %}
+            <br>
+              <h5 class="mx-2">Hello, {{ user.username }}</h5>
+              <hr />
+              {% if user.is_authenticated and user.is_superuser or user.is_staff %}
+                <li>
+                  <a class="dropdown-item" href="{% url 'appointments' %}">Manage Bookings</a>
+                </li>
+              {% endif %}
+              <li>
+                <a class="dropdown-item" href="{% url 'booking' %}">Book an appointment</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              </li>
+              <hr />
+            {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'booking' %}">Book an appointment</a>
+              </li>
+              <hr>
+              <li>
+                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+              </li>
+              <hr />
+              <br>
+            {% endif %}
+            <li>
+              <p class="text-center" id="c-inc">Radiant Inc., Dubai UAE</p>
+            </li>
+          </ul>        
+        </div>
+      </nav>
+    </div>
+
+    <div class="body">
+      {% block body %}
+
+      {% endblock %}
+
+      <div class="container-fluid">
+        <footer class="site-footer" id="footers">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <h6>About Us</h6>
+                <p class="text-justify">Radiant Aesthetics was born out of a vision—a vision to create a sanctuary where aesthetics blend seamlessly with personalized care. Dr. KwakKwak, our founder, is not only a skilled dermatologist but also an artist at heart. Her belief? That every face tells a unique story, and our job is to help you write the most beautiful chapters.</p>
+              </div>
+
+              <div class="col-6 col-md-3">
+                <h6>Services</h6>
+                <ul class="footer-links">
+                  <li>
+                    <a href="#">Dermatology</a>
+                  </li>
+                  <li>
+                    <a href="#">Countour</a>
+                  </li>
+                  <li>
+                    <a href="#">Botox</a>
+                  </li>
+                  <li>
+                    <a href="#">Liposuction</a>
+                  </li>
+                  <li>
+                    <a href="#">Hair removal</a>
+                  </li>
+                  <li>
+                    <a href="#">Acne Treatment</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-6 col-md-3">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                  <li>
+                    <a href="#">About Us</a>
+                  </li>
+                  <li>
+                    <a href="#">Contact Us</a>
+                  </li>
+                  <li>
+                    <a href="#">Contribute</a>
+                  </li>
+                  <li>
+                    <a href="#">Privacy Policy</a>
+                  </li>
+                  <li>
+                    <a href="#">Sitemap</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <hr />
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved</p>
+              </div>
+
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                  <li>
+                    <a class="facebook" href="#"><i class="bi bi-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="#"><i class="bi bi-whatsapp"></i></a>
+                  </li>
+                  <li>
+                    <a class="dribbble" href="#"><i class="bi bi-instagram"></i></a>
+                  </li>
+                  <li>
+                    <a class="linkedin" href="#"><i class="bi bi-twitter-x"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      const offcanvasElementList = document.querySelectorAll('.offcanvas')
+      const offcanvasList = [...offcanvasElementList].map((offcanvasEl) => new bootstrap.Offcanvas(offcanvasEl))
+    </script>
+
+    <script>
+      const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+      const appendAlert = (message, type) => {
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+          `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+          `   <div>${message}</div>`,
+          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+          '</div>'
+        ].join('')
+
+        alertPlaceholder.append(wrapper)
+        } 
+
+      const alertTrigger = document.getElementById('liveAlertBtn')
+      if (alertTrigger) {
+      alertTrigger.addEventListener('click', () => {
+        appendAlert('Nice, you triggered this alert message!', 'success')
+      })
+      }
+    </script>
+  </body>
+</html>
