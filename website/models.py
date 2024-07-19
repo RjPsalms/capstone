@@ -21,6 +21,7 @@ class Patient(models.Model):
     details = models.TextField(max_length=3000, null=True, blank=True)
     appt_date = models.DateTimeField()
     date_added = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="booker")
     
     def __str__(self):

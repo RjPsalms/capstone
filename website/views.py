@@ -166,13 +166,21 @@ def booking(request):
 
 
 def appointments(request):
-    patient_list = Patient.objects.all().order_by('-date_added')
-    paginator = Paginator(patient_list, 10)  # Show 10 patients per page
+    if request.method == 'GET':
+        patient_list = Patient.objects.all().order_by('-date_added')
+        paginator = Paginator(patient_list, 10)  # Show 10 patients per page
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'website/appointments.html', {'page_obj': page_obj})
-    
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'website/appointments.html', {'page_obj': page_obj})
+        
+
+def delete_appointment(request, appointment_id):
+    appointment = get_object_or_404(Patient, id=appointment_id)
+    appointment.delete()
+    messages.success(request, 'Appointment deleted successfully.')
+    return redirect('appointments')
+     
 
 def staffs(request):
     return render(request, 'website/staffs.html')
