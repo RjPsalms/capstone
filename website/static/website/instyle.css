@@ -183,6 +183,15 @@ div.card-footer {
     background-color: rgba(210, 105, 30, 0.795);
 }
 
+.form-control {
+  width: 100%;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 #staff {
     text-align: center;
     padding: 30px;

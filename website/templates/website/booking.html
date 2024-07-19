@@ -1,91 +1,78 @@
 {% extends 'website/layout.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-  Book for an appointment
+Book for an appointment
 {% endblock %}
 
 {% block body %}
 
-  <div class="container mx-auto">
-    <h3>Book an appointment</h3>
-    {% if error_message %}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ error_message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endif %}
-
-    <form action="{% url 'booking' %}" method="post">
-      {% csrf_token %}
-
-      <div class="row">
-        <div class="col">
-          <div class="form-floating mb-3">
-            <input name="first_name" type="text" class="form-control" id="floatingInput" placeholder="First Name" />
-            <label for="floatingInput">First Name</label>
-          </div>
+<div class="container">
+    <div class="container p-5 c-appoint">
+        <h3>Book an appointment</h3>
+        {% if error_message %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error_message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="col">
-          <div class="form-floating mb-3">
-            <input name="last_name" type="text" class="form-control" id="floatingInput" placeholder="Last Name" />
-            <label for="floatingInput">Last Name</label>
-          </div>
-        </div>
-      </div>
+        {% endif %}
 
-      <div class="row">
-        <div class="col">
-          <div class="form-floating mb-3">
-            <input name="email" type="text" class="form-control" id="floatingInput" placeholder="Email Address" />
-            <label for="floatingInput">Email Address</label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-floating mb-3">
-            <input name="phone_number" type="text" class="form-control" id="floatingInput" placeholder="Phone number" />
-            <label for="floatingInput">Phone Number</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="input-group mb-3">
-            <select name="service" class="form-select" id="inputGroupSelect02">
-              <option selected>Book for...</option>
-              {% for service in services %}
-                <option value="{{ service }}">{{ service }}</option>
-              {% endfor %}
-            </select>
-            <label class="input-group-text" for="inputGroupSelect02">Options</label>
-          </div>
-        </div>
-
-          <div class="col">
-            <div class="form-floating mb-3">
-              <input name="appt_date" type="datetime" class="form-control" id="floatingInput" placeholder="Appointment Date" />
-              <label for="floatingInput"><small class="text-body-secondary">Date YYYY-MM-DD HH:MM:SS</small></label>
+        <form action="{% url 'booking' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form.first_name|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.last_name|as_crispy_field }}
+                </div>
             </div>
-          </div>
-      </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form.email|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.phone_number|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form.service|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {{ form.appt_date|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form.details|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 mx-auto">
+                    <button type="submit" class="btn btn-outline-success px-3 my-3">Book appointment</button>
+                </div>
+                <div class="col-4 mx-auto">
+                    <a href="#"><button class="btn btn-success px-3 my-3">Message us on WhatsApp</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-      <div class="row">
-        <div class="col">
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
-            <textarea name="details" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="row d-flex justify-content-between">
-        <div class="col">
-          <button type="submit" class="btn btn-outline-success px-5 my-3">Book appointment</button>
-        </div>
-        <div class="col">
-          <a href="#"><button class="btn btn-success px-5 my-3">Or call us in Whatsapp</button></a>
-        </div>
-      
-    </form>
-  </div>
+<script>
+    $(function () {
+        $('#id_appt_date').datetimepicker({
+            format: 'Y-m-d H:i',  // Adjust date format as needed
+            step: 5  // Interval for time selection in minutes
+        });
+    });
+</script>
+
+</body>
+
+</html>
 {% endblock %}
