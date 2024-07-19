@@ -165,21 +165,81 @@ def booking(request):
 #         return render(request, 'website/booking.html', {'services': services})
 
 
-def appointments(request):
-    if request.method == 'GET':
-        patient_list = Patient.objects.all().order_by('-date_added')
-        paginator = Paginator(patient_list, 10)  # Show 10 patients per page
+def active_appointments(request):
+    patients = Patient.objects.all()
+    return render(request, 'website/active_appointments.html', {'patients': patients})
 
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        return render(request, 'website/appointments.html', {'page_obj': page_obj})
-        
+def manage_appointments(request):
+    if request.method == 'POST':
+        selected_appointments = request.POST.getlist('selected_appointments')
+        action = request.POST.get('action')
+        if action == 'delete':
+            Patient.objects.filter(id__in=selected_appointments).delete()
+            messages.success(request, 'Selected appointments deleted successfully.')
+        elif action == 'cancel':
+            Patient.objects.filter(id__in=selected_appointments).update(is_active=False)
+            messages.success(request, 'Selected appointments canceled successfully.')
+        elif action == 'rebook':
+            # Implement rebooking logic
+            messages.success(request, 'Selected appointments rebooked successfully.')
+        # Handle other actions similarly
+    return redirect('active_appointments')
+
+
+def edit_appointment(request, appointment_id):
+    appointment = get_object_or_404(Patient, id=appointment_id)
+    
+    if request.method == 'POST':
+        form = PatientForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Appointment updated successfully.')
+            return redirect('active_appointments')
+    else:
+        form = PatientForm(instance=appointment)
+    
+    return render(request, 'website/edit_appointment.html', {'form': form, 'appointment_id': appointment_id})
+
+
+def rebook_appointment(request, appointment_id):
+    # Implement rebooking logic
+    pass
+
+def cancel_appointment(request, appointment_id):
+    appointment = get_object_or_404(Patient, id=appointment_id)
+    appointment.is_active = False
+    appointment.save()
+    messages.success(request, 'Appointment canceled successfully.')
+    return redirect('active_appointments')
 
 def delete_appointment(request, appointment_id):
     appointment = get_object_or_404(Patient, id=appointment_id)
     appointment.delete()
     messages.success(request, 'Appointment deleted successfully.')
-    return redirect('appointments')
+    return redirect('active_appointments')
+
+
+# def appointments(request):
+#     if request.method == 'GET':
+#         patient_list = Patient.objects.all().order_by('-date_added')
+#         paginator = Paginator(patient_list, 10)  # Show 10 patients per page
+
+#         page_number = request.GET.get('page')
+#         page_obj = paginator.get_page(page_number)
+#         return render(request, 'website/appointments.html', {'page_obj': page_obj})
+        
+
+# def cancel_appointment(request, appointment_id):
+#     appointment = get_object_or_404(Patient, id=appointment_id)
+#     appointment = appointment;
+#     messages.success(request, 'Appointment has been cancelled.')
+#     return redirect('appointments')
+
+# def delete_appointment(request, appointment_id):
+#     appointment = get_object_or_404(Patient, id=appointment_id)
+#     appointment.delete()
+#     messages.success(request, 'Appointment deleted successfully.')
+#     return redirect('appointments')
      
 
 def staffs(request):
