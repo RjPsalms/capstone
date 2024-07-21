@@ -46,9 +46,8 @@ def booking(request):
             #     fail_silently=False,
             # )
             
-            messages.success(request, 'Appointment booked successfully!')
+            messages.success(request, 'Appointment booked successfully! Thank you for your trust!')
             return render(request, 'website/index.html', {
-                'created_message': 'Appointment place successfully! A SMS confirmation will be sent to you shortly. Thank you for your trust!',
             })
         else:
             messages.error(request, 'Please correct the errors below.')
@@ -166,8 +165,8 @@ def booking(request):
 
 
 def active_appointments(request):
-    patients = Patient.objects.all().order_by('-appt_date')
-    paginator = Paginator(patients ,3)
+    patients = Patient.objects.all().order_by('-date_added')
+    paginator = Paginator(patients ,10)
     
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -184,11 +183,7 @@ def manage_appointments(request):
             messages.success(request, 'Selected appointments deleted successfully.')
         elif action == 'cancel':
             Patient.objects.filter(id__in=selected_appointments).update(is_active=False)
-            messages.success(request, 'Selected appointments canceled successfully.')
-        elif action == 'rebook':
-            # Implement rebooking logic
-            messages.success(request, 'Selected appointments rebooked successfully.')
-        # Handle other actions similarly
+            messages.success(request, 'Selected appointments canceled successfully.')        
     return redirect('active_appointments')
 
 
@@ -207,10 +202,6 @@ def edit_appointment(request, appointment_id):
     return render(request, 'website/edit_appointment.html', {'form': form, 'appointment_id': appointment_id})
 
 
-def rebook_appointment(request, appointment_id):
-    # Implement rebooking logic
-    pass
-
 def cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Patient, id=appointment_id)
     appointment.is_active = False
@@ -224,28 +215,6 @@ def delete_appointment(request, appointment_id):
     messages.success(request, 'Appointment deleted successfully.')
     return redirect('active_appointments')
 
-
-# def appointments(request):
-#     if request.method == 'GET':
-#         patient_list = Patient.objects.all().order_by('-date_added')
-#         paginator = Paginator(patient_list, 10)  # Show 10 patients per page
-
-#         page_number = request.GET.get('page')
-#         page_obj = paginator.get_page(page_number)
-#         return render(request, 'website/appointments.html', {'page_obj': page_obj})
-        
-
-# def cancel_appointment(request, appointment_id):
-#     appointment = get_object_or_404(Patient, id=appointment_id)
-#     appointment = appointment;
-#     messages.success(request, 'Appointment has been cancelled.')
-#     return redirect('appointments')
-
-# def delete_appointment(request, appointment_id):
-#     appointment = get_object_or_404(Patient, id=appointment_id)
-#     appointment.delete()
-#     messages.success(request, 'Appointment deleted successfully.')
-#     return redirect('appointments')
      
 
 def staffs(request):

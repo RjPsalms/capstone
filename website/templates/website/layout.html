@@ -101,7 +101,7 @@
               {% endfor %}
           </div>
       {% endif %}
-  </div>
+    </div>
 
     <div class="body">
       {% block body %}
@@ -217,16 +217,6 @@
         appendAlert('Nice, you triggered this alert message!', 'success')
       })
       }
-    </script>
-
-    <script>
-      $(function () {
-          $('#id_appt_date').datetimepicker({
-              format: 'Y-m-d H:i', 
-              step: 5,
-              minDate: 0   
-          });
-      });
     </script>
 
   </body>

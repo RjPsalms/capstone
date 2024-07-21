@@ -6,6 +6,14 @@
 {% endblock %}
 
 {% block body %}
+
+  <!-- {% if created_message %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong>Placed appointment!</strong> {{ created_message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endif %} -->
+
   <div class="container-fluid">
     <section id="hero">
       <div id="carouselExampleFade" class="carousel slide carousel-fade d-flex align-items-center justify-content-center" data-bs-ride="carousel">
@@ -36,13 +44,6 @@
         </button>
       </div>
     </section>
-
-    {% if created_message %}
-      <div class="alert alert-info alert-dismissible fade show" role="alert">
-        <strong>Placed appointment!</strong> {{ created_message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endif %}
 
     <section id="welcome">
       <div class="card text-center bg-transparent border-0">

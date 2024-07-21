@@ -63,7 +63,15 @@ Book for an appointment
     </div>
 </div>
 
-</body>
+<script>
+    $(function () {
+        $('#id_appt_date').datetimepicker({
+            format: 'Y-m-d H:i',
+            step: 5,
+            minDate: 0
+        });
+    });
+</script>
 
-</html>
+</body>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 from .models import Patient
 
 from crispy_forms.helper import FormHelper
@@ -58,6 +59,10 @@ class PatientForm(forms.ModelForm):
 
         if not service or not appt_date:
             raise ValidationError("Service and appointment date are required.")
+        
+         # Check for past date
+        if appt_date and appt_date < timezone.now():
+            raise ValidationError("The appointment date cannot be in the past.")
 
         # Check for duplicate booking, excluding the current instance
         if self.instance.pk:
