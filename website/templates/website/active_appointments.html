@@ -29,8 +29,8 @@ Asthetic Procedure Appointments
                 </tr>
             </thead>
             <tbody class="table-group-divider my-lg-5">
-                {% if patients %}
-                {% for patient in patients %}
+                {% if page_obj %}
+                {% for patient in page_obj %}
                 <tr {% if not patient.is_active %} class="table-secondary text-muted" {% endif %} class="tablerow">
                     <td><input type="checkbox" name="selected_appointments" value="{{ patient.id }}"></td>
                     <td>{{ patient.id }}</td>

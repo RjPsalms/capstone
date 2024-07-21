@@ -172,7 +172,6 @@ def active_appointments(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'website/active_appointments.html', {
-        'patients': patients,
         'page_obj': page_obj
         })
 
