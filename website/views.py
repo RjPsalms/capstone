@@ -14,10 +14,10 @@ from django.contrib import messages
 from .forms import PatientForm
 
 
-from django.utils.dateparse import parse_datetime
-from django.core.mail import send_mail
-from django.utils.html import strip_tags
-from django.template.loader import render_to_string
+# from django.utils.dateparse import parse_datetime
+# from django.core.mail import send_mail
+# from django.utils.html import strip_tags
+# from django.template.loader import render_to_string
 
 
 import logging
@@ -166,8 +166,15 @@ def booking(request):
 
 
 def active_appointments(request):
-    patients = Patient.objects.all()
-    return render(request, 'website/active_appointments.html', {'patients': patients})
+    patients = Patient.objects.all().order_by('-appt_date')
+    paginator = Paginator(patients ,3)
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'website/active_appointments.html', {
+        'patients': patients,
+        'page_obj': page_obj
+        })
 
 def manage_appointments(request):
     if request.method == 'POST':

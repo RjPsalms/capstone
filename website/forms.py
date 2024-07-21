@@ -6,13 +6,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 
 class PatientForm(forms.ModelForm):
-    class Meta:
-        model = Patient
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'service', 'appt_date', 'details']
-        widgets = {
-           'appt_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-        }
-
     def __init__(self, *args, **kwargs):
         super(PatientForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -24,8 +17,16 @@ class PatientForm(forms.ModelForm):
             Field('phone_number', css_class='form-control mb-3', wrapper_class='col-md-5 col-lg-4'),
             Field('service', css_class='form-select mb-3', wrapper_class='col-md-5 col-lg-4'),
             Field('appt_date', css_class='form-control mb-3', wrapper_class='col-md-5 col-lg-'),
-            Field('details', css_class='form-control mb-3', rows=1, wrapper_class='col-md-10 col-lg-8'),
+            Field('details', css_class='form-control mb-3', wrapper_class='col-md-10 col-lg-8', attrs={'rows': '1'}),
         )
+        
+    class Meta:
+        model = Patient
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'service', 'appt_date', 'details']
+        widgets = {
+            'appt_date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'details': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
+        }
 
     def save(self, commit=True, user=None):
         instance = super().save(commit=False)
@@ -54,13 +55,16 @@ class PatientForm(forms.ModelForm):
         service = cleaned_data.get('service')
         appt_date = cleaned_data.get('appt_date')
         email = cleaned_data.get('email')
-        phone_number = cleaned_data.get('phone_number')
 
         if not service or not appt_date:
             raise ValidationError("Service and appointment date are required.")
 
-        # Check for duplicate booking
-        if Patient.objects.filter(service=service, appt_date=appt_date, email=email).exists():
-            raise ValidationError("A booking already exists for this service at the specified time.")
+        # Check for duplicate booking, excluding the current instance
+        if self.instance.pk:
+            if Patient.objects.filter(service=service, appt_date=appt_date, email=email).exclude(pk=self.instance.pk).exists():
+                raise ValidationError("A booking already exists for this service at the specified time.")
+        else:
+            if Patient.objects.filter(service=service, appt_date=appt_date, email=email).exists():
+                raise ValidationError("A booking already exists for this service at the specified time.")
         
         return cleaned_data

@@ -9,7 +9,7 @@ Book for an appointment
 {% block body %}
 
 <div class="container">
-    <div class="container p-5 c-appoint">
+    <div class="container px-5 mb-5 c-appoint">
         <h3>Book an appointment</h3>
         {% if error_message %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -62,15 +62,6 @@ Book for an appointment
         </form>
     </div>
 </div>
-
-<script>
-    $(function () {
-        $('#id_appt_date').datetimepicker({
-            format: 'Y-m-d H:i',  // Adjust date format as needed
-            step: 5  // Interval for time selection in minutes
-        });
-    });
-</script>
 
 </body>
 

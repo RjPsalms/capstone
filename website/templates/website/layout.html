@@ -12,6 +12,7 @@
 
     <!--For forms-->
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Datetimepicker CSS and JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
@@ -217,5 +218,16 @@
       })
       }
     </script>
+
+    <script>
+      $(function () {
+          $('#id_appt_date').datetimepicker({
+              format: 'Y-m-d H:i', 
+              step: 5,
+              minDate: 0   
+          });
+      });
+    </script>
+
   </body>
 </html>
