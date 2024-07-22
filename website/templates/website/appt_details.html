@@ -1,0 +1,15 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block title %}
+Appointment Details
+{% endblock %}
+
+{% block body %}
+    {% if appointment %}
+        {% for appt in appointment %}
+                 
+        {% endfor %}
+    {% else %}
+    <h3>No bookings made yet.</h3>
+{% endblock %}

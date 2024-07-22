@@ -11,7 +11,7 @@ Asthetic Procedure Appointments
     <h3>Active Appointments</h3>
     <form method="post" action="{% url 'manage_appointments' %}">
         {% csrf_token %}
-        <div class="table-responsive">
+        <div class="table-responsive text-center">
         <table class="table align-middle table-striped table-hover table-group-divider">
             <thead>
                 <tr>
@@ -44,13 +44,16 @@ Asthetic Procedure Appointments
                 
                     <td>
                         {% if patient.is_active %}
-                        <a href="{% url 'edit_appointment' patient.id %}" class="badge rounded-pill text-bg-info mx-auto">Edit</a>
-                        <a href="{% url 'cancel_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to cancel this appointment?')" class="badge rounded-pill text-bg-warning mx-auto">Cancel</a>
-                        <a href="{% url 'delete_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to delete this appointment?\n THIS CANNOT BE UNDONE!')" class="badge rounded-pill text-bg-danger mx-auto">Delete</a>
+                        <a href="{% url 'edit_appointment' patient.id %}"><i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-title="Edit"></i></a>
+                        <a href="{% url 'cancel_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to CANCEL this appointment?')">
+                            <i class="bi bi-x-square" data-bs-toggle="tooltip" data-bs-title="Cancel"></i></a>
+                        <a href="{% url 'delete_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to DELETE this appointment?\n THIS CANNOT BE UNDONE!')">
+                            <i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-title="Delete"></i></a>
                         
                         {% else %}
                         <span class="badge bg-secondary">Canceled</span>
-                        <a href="{% url 'delete_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to delete this appointment? \n THIS CANNOT BE UNDONE!')" class="badge rounded-pill text-bg-danger">Delete</a>
+                        <a href="{% url 'delete_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to DELETE this appointment? \n THIS CANNOT BE UNDONE!')">
+                            <i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-title="Delete"></i></a>
                         
                         {% endif %}
                     </td>
@@ -119,6 +122,10 @@ Asthetic Procedure Appointments
 
 </div>
 
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
 
 <script>
     document.getElementById('select-all').addEventListener('change', function () {
