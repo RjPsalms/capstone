@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.wsgi import get_wsgi_application
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_blog.settings")
+application = get_wsgi_application()
+app = application
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,8 +87,13 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgresql://postgres:cJRCdTyiMLUqACTSYlgFEcUkkRPEAEgc@postgres.railway.internal:5432/railway',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'cJRCdTyiMLUqACTSYlgFEcUkkRPEAEgc',
+        'HOST': 'postgres.railway.internal',
+        'PORT': 5432,
     }
 }
 
