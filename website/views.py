@@ -177,13 +177,19 @@ def active_appointments(request):
 def manage_appointments(request):
     if request.method == 'POST':
         selected_appointments = request.POST.getlist('selected_appointments')
-        action = request.POST.get('action')
-        if action == 'delete':
-            Patient.objects.filter(id__in=selected_appointments).delete()
-            messages.success(request, 'Selected appointments deleted successfully.')
-        elif action == 'cancel':
-            Patient.objects.filter(id__in=selected_appointments).update(is_active=False)
-            messages.success(request, 'Selected appointments canceled successfully.')        
+        if not selected_appointments:
+            messages.success(request, 'Choose atleast one entry.')
+        else:
+            action = request.POST.get('action')
+            if action == 'delete':
+                Patient.objects.filter(id__in=selected_appointments).delete()
+                messages.success(request, 'Selected appointments DELETED.')
+            elif action == 'cancel':
+                Patient.objects.filter(id__in=selected_appointments).update(is_active=False)
+                messages.success(request, 'Selected appointments CANCELLED.') 
+            elif action == 'done':
+                Patient.objects.filter(id__in=selected_appointments).update(is_done=True)
+                messages.success(request, 'Selected appointments marked DONE.')          
     return redirect('active_appointments')
 
 
@@ -204,16 +210,43 @@ def edit_appointment(request, appointment_id):
 
 def cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Patient, id=appointment_id)
-    appointment.is_active = False
-    appointment.save()
-    messages.success(request, 'Appointment canceled successfully.')
+    if not appointment:
+        messages.success(request, 'Choose atleast one entry.')
+    else: 
+        appointment.is_active = False
+        appointment.save()
+        messages.success(request, 'Appointment has been CANCELLED.')
+    return redirect('active_appointments')
+
+
+def done_appt(request, appointment_id):
+    appointment = get_object_or_404(Patient, id=appointment_id)
+    if not appointment:
+        messages.success(request, 'Choose atleast one entry.')
+    else: 
+        appointment.is_done = True
+        appointment.save()
+    return redirect('active_appointments')
+
+def undone_appt(request, appointment_id):
+    appointment = get_object_or_404(Patient, id=appointment_id)
+    if not appointment:
+        messages.success(request, 'Choose atleast one entry.')
+    else: 
+        appointment.is_done = False
+        appointment.save()
     return redirect('active_appointments')
 
 def delete_appointment(request, appointment_id):
     appointment = get_object_or_404(Patient, id=appointment_id)
-    appointment.delete()
-    messages.success(request, 'Appointment deleted successfully.')
+    if not appointment:
+        messages.success(request, 'Choose atleast one entry.')
+    else:    
+        appointment.delete()
+        messages.success(request, 'Appointment has been DELETED.')
     return redirect('active_appointments')
+
+
 
      
 

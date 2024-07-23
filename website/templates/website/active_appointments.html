@@ -31,7 +31,10 @@ Asthetic Procedure Appointments
             <tbody class="table-group-divider my-lg-5">
                 {% if page_obj %}
                 {% for patient in page_obj %}
-                <tr {% if not patient.is_active %} class="table-secondary text-muted" {% endif %} class="tablerow">
+                <tr {% if not patient.is_active %} class="table-secondary text-muted"
+                    {% elif patient.is_done %}
+                        class="table-success"
+                    {% endif %}class="tablerow">
                     <td><input type="checkbox" name="selected_appointments" value="{{ patient.id }}"></td>
                     <td>{{ patient.id }}</td>
                     <td>{{ patient.first_name }} {{ patient.last_name }}</td>
@@ -44,6 +47,11 @@ Asthetic Procedure Appointments
                 
                     <td>
                         {% if patient.is_active %}
+                            {% if not patient.is_done %}
+                                <a href="{% url 'done_appt' patient.id %}" value="done"><i class="bi bi-check2-circle" data-bs-toggle="tooltip" data-bs-title="Done"></i></a>
+                            {% else %}
+                                <a href="{% url 'undone_appt' patient.id %}" value="done"><i class="bi bi-check2-circle" data-bs-toggle="tooltip" data-bs-title="UnDone"></i></a>
+                            {% endif %}
                         <a href="{% url 'edit_appointment' patient.id %}"><i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-title="Edit"></i></a>
                         <a href="{% url 'cancel_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to CANCEL this appointment?')">
                             <i class="bi bi-x-square" data-bs-toggle="tooltip" data-bs-title="Cancel"></i></a>
@@ -70,11 +78,12 @@ Asthetic Procedure Appointments
                     <option>Batch options</option>
                     <option value="delete">Delete</option>
                     <option value="cancel">Cancel</option>
+                    <option value="done">Appointment Done</option>
 
                 </select>
             </div>
             <div class="mx-4 mb-5">
-                <button type="submit" onclick="return confirm('Confirm batch DELETE/CANCEL?')" class="btn btn-sm btn-danger">Apply to Selected</button>
+                <button type="submit" onclick="return confirm('Confirm batch action?')" class="btn btn-sm btn-danger">Apply to Selected</button>
             </div>
         </div>
     </form>
