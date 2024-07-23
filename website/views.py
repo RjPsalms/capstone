@@ -38,16 +38,18 @@ def booking(request):
 
             if request.user.is_superuser or request.user.is_staff:
                 messages.success(request, 'Appointment booked successfully!')
-                form = PatientForm()
-                return render(request, 'website/booking.html', {'form': form})
+                return redirect('booking')  # Redirect to clear the form
             else:
                 messages.success(request, 'Appointment booked successfully! Thank you for your trust!')
-                return render(request, 'website/index.html')
+                return redirect('index')  # Redirect to index or another page
+
         else:
             messages.error(request, 'Please correct the errors below.')
+            return render(request, 'website/booking.html', {'form': form})
     else:
         form = PatientForm()
-        return render(request, 'website/booking.html', {'form': form})
+    
+    return render(request, 'website/booking.html', {'form': form})
 
 
 def active_appointments(request):
@@ -145,13 +147,6 @@ def confirm_appt(request, appointment_id):
     appointment.save()
 
     #Now write the send email logic here
-    # send_mail(
-    #     "Radiant Aes. appointment success",
-    #     "We have successfully received your appointment application. A confirmation SMS will be sent to you in a few minutes. Thank you for your trust!",
-    #     settings.DEFAULT_FROM_EMAIL,
-    #     [patient.email],
-    #     fail_silently=False,
-    # )
     send_appointment_confirmation(appointment)
 
     messages.success(request, 'Appointment has been CONFIRMED, a confirmation email has been sent to the client.')
