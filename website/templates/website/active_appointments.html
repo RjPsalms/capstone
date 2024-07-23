@@ -1,0 +1,147 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block title %}
+Asthetic Procedure Appointments
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <h3>Active Appointments</h3>
+    <form method="post" action="{% url 'manage_appointments' %}">
+        {% csrf_token %}
+        <div class="table-responsive">
+        <table class="table align-middle table-hover table-group-divider">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Patient's name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone number</th>
+                    <th scope="col">Procedure</th>
+                    <th scope="col">Appointment date</th>
+                    
+                    <th scope="col">Date Added</th>
+                   
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider my-lg-5">
+                {% if page_obj %}
+                {% for patient in page_obj %}
+                <tr {% if not patient.is_active %} class="table-secondary text-muted"
+                    {% elif patient.is_done %}
+                        class="table-success"
+                    {% elif patient.is_confirmed%}
+                    class="table-primary"
+                    {% endif %}class="tablerow">
+                    <td><input type="checkbox" name="selected_appointments" value="{{ patient.id }}"></td>
+                    <td>{{ patient.id }}</td>
+                    <td><a href="{% url 'appt_details' patient.id %}">{{ patient.first_name }} {{ patient.last_name }}</a></td>
+                    <td>{{ patient.email }}</td>
+                    <td>{{ patient.phone_number }}</td>
+                    <td>{{ patient.service }}</td>
+                    <td>{{ patient.appt_date }}</td>
+                   
+                    <td>{{ patient.date_added }}</td>
+                
+                    <td>
+                        {% if patient.is_active %}
+                            {% if not patient.is_done %}
+                                <a href="{% url 'done_appt' patient.id %}" value="done"><i class="bi bi-check2-circle" data-bs-toggle="tooltip" data-bs-title="Done"></i></a>
+                            {% else %}
+                                <a href="{% url 'undone_appt' patient.id %}" value="done"><i class="bi bi-check2-circle" data-bs-toggle="tooltip" data-bs-title="UnDone"></i></a>
+                            {% endif %}
+                        <a href="{% url 'edit_appointment' patient.id %}"><i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-title="Edit"></i></a>
+                        <a href="{% url 'cancel_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to CANCEL this appointment?')">
+                            <i class="bi bi-x-square" data-bs-toggle="tooltip" data-bs-title="Cancel"></i></a>
+                        <a href="{% url 'delete_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to DELETE this appointment?\n THIS CANNOT BE UNDONE!')">
+                            <i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-title="Delete"></i></a>
+                        
+                        {% else %}
+                        <span class="badge bg-secondary">Canceled</span>
+                        <a href="{% url 'delete_appointment' patient.id %}"  onclick="return confirm('Are you sure you want to DELETE this appointment? \n THIS CANNOT BE UNDONE!')">
+                            <i class="bi bi-trash" data-bs-toggle="tooltip" data-bs-title="Delete"></i></a>
+                        
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        </div>
+
+        <div class="d-flex justify-content-start">
+            <div>
+                <select name="action" class="form-select form-select-sm">
+                    <option>Batch options</option>
+                    <option value="delete">Delete</option>
+                    <option value="cancel">Cancel</option>
+                    <option value="done">Appointment Done</option>
+
+                </select>
+            </div>
+            <div class="mx-4">
+                <button type="submit" onclick="return confirm('Confirm batch action?')" class="btn btn-sm btn-danger">Apply to Selected</button>
+            </div>
+        </div>
+    </form>
+
+     <!-- Pagination Controls -->
+     <nav aria-label="Page navigation">
+        <ul class="pagination pagination-sm justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</div>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+
+<script>
+    document.getElementById('select-all').addEventListener('change', function () {
+        var checkboxes = document.querySelectorAll('input[name="selected_appointments"]');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
+</script>
+{% endblock %}

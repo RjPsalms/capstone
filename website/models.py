@@ -21,7 +21,10 @@ class Patient(models.Model):
     details = models.TextField(max_length=3000, null=True, blank=True)
     appt_date = models.DateTimeField()
     date_added = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="booker")
+    is_active = models.BooleanField(default=True, blank=True)
+    is_done = models.BooleanField(default=False, blank=True)
+    is_confirmed = models.BooleanField(default=False, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="booker")
     
     def __str__(self):
         return f"{self.first_name} {self.last_name} for {self.service} - {self.phone_number} {self.email} - {self.date_added} booked by {self.user}"
