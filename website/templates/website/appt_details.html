@@ -7,9 +7,37 @@ Appointment Details
 
 {% block body %}
     {% if appointment %}
-        {% for appt in appointment %}
-                 
-        {% endfor %}
+        
+           <div class="container">
+            <div class="row row-cols-1 col-8 mx-auto d-flex">
+            <div class="card bg-white mb-3">
+                <div class="card-header border-dark">Appointment Details</div>
+                <div class="card-body">
+                  <h5 class="card-title fs-4">Name:  {{ appointment.first_name }} {{ appointment.last_name }}</h5>
+                  <p class="card-text">
+                    <p class="fs-4"> Applied for {{ appointment.service }}</p>
+                    <p class="fs-6">Date of appointment: {{ appointment.appt_date }}</p>
+                    <p class="fs-6">Date added: {{ appointment.date_added }}</p>
+                    <p class="fs-6">Email: {{ appointment.email }}  || Phone no. {{ appointment.phone_number }}</p>
+                    <p class="fs-6">Remarks: {{ appointment.details }}</p>
+                  </p>
+                </div>
+                <div class="card-footer bg-transparent">Booked by: {{ appointment.user }}</div>
+              </div>
+              <div class="row mx-auto">
+              {% if not appointment.is_done and appointment.is_active  and not appointment.is_confirmed %}
+                <a href="{% url 'confirm_appt' appointment.id %}">
+                <button type="submit" class="btn btn-info mb-5">Confirm application (An email will be sent automatically.) </button>
+                </a>
+              {% endif %}
+            </div>
+            </div>
+
+            
+
+           </div>      
+      
     {% else %}
     <h3>No bookings made yet.</h3>
+    {% endif %}
 {% endblock %}

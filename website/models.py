@@ -23,6 +23,7 @@ class Patient(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True, blank=True)
     is_done = models.BooleanField(default=False, blank=True)
+    is_confirmed = models.BooleanField(default=False, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="booker")
     
     def __str__(self):

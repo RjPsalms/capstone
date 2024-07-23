@@ -11,8 +11,8 @@ Asthetic Procedure Appointments
     <h3>Active Appointments</h3>
     <form method="post" action="{% url 'manage_appointments' %}">
         {% csrf_token %}
-        <div class="table-responsive text-center">
-        <table class="table align-middle table-striped table-hover table-group-divider">
+        <div class="table-responsive">
+        <table class="table align-middle table-hover table-group-divider">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -34,10 +34,12 @@ Asthetic Procedure Appointments
                 <tr {% if not patient.is_active %} class="table-secondary text-muted"
                     {% elif patient.is_done %}
                         class="table-success"
+                    {% elif patient.is_confirmed%}
+                    class="table-primary"
                     {% endif %}class="tablerow">
                     <td><input type="checkbox" name="selected_appointments" value="{{ patient.id }}"></td>
                     <td>{{ patient.id }}</td>
-                    <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+                    <td><a href="{% url 'appt_details' patient.id %}">{{ patient.first_name }} {{ patient.last_name }}</a></td>
                     <td>{{ patient.email }}</td>
                     <td>{{ patient.phone_number }}</td>
                     <td>{{ patient.service }}</td>
