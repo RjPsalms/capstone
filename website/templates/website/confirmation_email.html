@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+</head>
+<body>
+    <h1>Appointment Confirmation</h1>
+    <p>Dear {{ first_name }} {{ last_name }},</p>
+    <p>Thank you for scheduling an appointment with us.</p>
+    <p>Here are your appointment details:</p>
+    <ul>
+        <li><strong>Service:</strong> {{ service }}</li>
+        <li><strong>Date:</strong> {{ appt_date }}</li>
+        <li><strong>Details:</strong> {{ details }}</li>
+    </ul>
+    <p>We look forward to seeing you!</p>
+    <p>Best regards,<br>Radiant Pugi Clinic</p>
+</body>
+</html>

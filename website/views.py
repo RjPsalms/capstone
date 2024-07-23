@@ -5,12 +5,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-from .models import Patient, User, Category
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
+
+from .utils import send_appointment_confirmation
+from .models import Patient, User, Category
 from .forms import PatientForm
 
 
@@ -150,6 +152,7 @@ def confirm_appt(request, appointment_id):
     #     [patient.email],
     #     fail_silently=False,
     # )
+    send_appointment_confirmation(appointment)
 
     messages.success(request, 'Appointment has been CONFIRMED, a confirmation email has been sent to the client.')
     return redirect('active_appointments')
