@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5l^46d*gi*+*nh@yz&micedz&*du(d($281uq*(2kb#t3q53+u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['capstone-o7tpibyny-rjpsalms-projects.vercel.app']
 
@@ -87,8 +87,8 @@ DATABASES = {
         'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': 'cJRCdTyiMLUqACTSYlgFEcUkkRPEAEgc',
-        'HOST': postgres.railway.internal,
-        'PORT': 5432,
+        'HOST': 'postgres.railway.internal',
+        'PORT': 5432
     }
 }
 
