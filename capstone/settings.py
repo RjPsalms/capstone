@@ -20,8 +20,8 @@ Env.read_env()
 ENVIRONMENT = env('ENVIRONMENT', default='production')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+#BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -34,7 +34,6 @@ if ENVIRONMENT == 'development':
     DEBUG = True
 else:
     DEBUG = False
-
 
 ALLOWED_HOSTS = ['*']
 
@@ -74,6 +73,13 @@ MIDDLEWARE = [
 ]
 
 
+if ENVIRONMENT == 'production':
+    try:
+        from .production_settings import *
+        MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware',)
+    except ImportError:
+        pass
+
 
 ROOT_URLCONF = 'capstone.urls'
 
@@ -111,10 +117,18 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -168,13 +182,17 @@ EMAIL_HOST_PASSWORD = 'pjif zfby dgqn vbry'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+# STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 STORAGES = {
     "staticfiles": {
