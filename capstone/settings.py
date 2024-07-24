@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:cJRCdTyiMLUqACTSYlgFEcUkkRPEAEgc@postgres.railway.internal:5432/railway',
+        'URL': 'postgresql://postgres:ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT@postgres.railway.internal:5432/railway',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'cJRCdTyiMLUqACTSYlgFEcUkkRPEAEgc',
+        'PASSWORD': 'ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT',
         'HOST': 'postgres.railway.internal',
         'PORT': 5432
     }
