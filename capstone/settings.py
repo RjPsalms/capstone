@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5l^46d*gi*+*nh@yz&micedz&*du(d($281uq*(2kb#t3q53+u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['capstone-o7tpibyny-rjpsalms-projects.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition
@@ -80,24 +80,24 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT@postgres.railway.internal:5432/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT',
-        'HOST': 'postgres.railway.internal',
-        'PORT': 5432
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'URL': 'postgresql://postgres:ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT@postgres.railway.internal:5432/railway',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT',
+#         'HOST': 'postgres.railway.internal',
+#         'PORT': 5432
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 AUTH_USER_MODEL = 'website.User'
 
