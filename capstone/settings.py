@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-POSTGRES_LOCALLY = True
+POSTGRES_LOCALLY = False
 
 DATABASES = {
     'default': {
