@@ -9,7 +9,7 @@ Appointment Details
     {% if appointment %}
         
            <div class="container">
-            <div class="row row-cols-1 col-8 mx-auto d-flex">
+            <div class="row row-cols-1 col-8 mx-auto">
             <div class="card bg-light mb-3">
                 <div class="card-header border-dark">Appointment Details</div>
                 <div class="card-body">
@@ -27,7 +27,7 @@ Appointment Details
               <div class="row mx-auto">
               {% if not appointment.is_done and appointment.is_active  and not appointment.is_confirmed %}
                 <a href="{% url 'confirm_appt' appointment.id %}">
-                <button type="submit" class="btn btn-info mb-5">Confirm application (An email will be sent automatically.) </button>
+                <button type="submit" class="btn btn-primary mb-5">Confirm application (An email will be sent automatically.) </button>
                 </a>
               {% endif %}
             </div>

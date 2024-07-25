@@ -31,7 +31,7 @@ Asthetic Procedure Appointments
             <tbody class="table-group-divider my-lg-5">
                 {% if page_obj %}
                 {% for patient in page_obj %}
-                <tr {% if not patient.is_active %} class="table-secondary text-muted"
+                <tr {% if not patient.is_active %} class="table-danger text-muted"
                     {% elif patient.is_done %}
                         class="table-success"
                     {% elif patient.is_confirmed%}
@@ -73,7 +73,7 @@ Asthetic Procedure Appointments
             </tbody>
         </table>
         </div>
-
+        <br>
         <div class="d-flex justify-content-start">
             <div>
                 <select name="action" class="form-select form-select-sm">
@@ -89,6 +89,7 @@ Asthetic Procedure Appointments
             </div>
         </div>
     </form>
+    <br>
 
      <!-- Pagination Controls -->
      <nav aria-label="Page navigation">
