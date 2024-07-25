@@ -18,11 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# if ENVIRONMENT == 'development':
-#     DEBUG = True
-# else:
-#     DEBUG = False
-DEBUG = True
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else:
+    DEBUG = False
+
+#DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost:8000', '.onrender.com']
 
@@ -106,7 +107,7 @@ DATABASES = {
 }
 
 
-POSTGRES_LOCALLY = False
+POSTGRES_LOCALLY = True
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
@@ -184,16 +185,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # import the logging library
 import logging
 
-# Get an instance of a logger
+#Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 def my_view(request, arg1, arg):
-    ...
     if bad_mojo:
         # Log an error message
         logger.error('Something went wrong!')
 
-# settings.py
+#settings.py
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

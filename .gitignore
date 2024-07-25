@@ -4,4 +4,6 @@ node/
 .env
 .DS_Store
 venv
+env
 db.sqlite3
+mysite.log
