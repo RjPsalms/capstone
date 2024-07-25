@@ -133,7 +133,6 @@ img.d-block {
 #testimonials { 
   .card {
   background-image: linear-gradient(to right, black, rgb(177, 150, 0), black);
-  scroll-snap-type: y proximity;
   scroll-snap-stop: normal;
   scroll-snap-align: center;
     }
