@@ -14,8 +14,7 @@ html {
     overflow-x: hidden !important;
     max-width : 100%; 
     scroll-behavior: smooth;
-    scroll-snap-align: start;
-    scroll-snap-type: y mandatory;
+    
 
 }
 
@@ -134,7 +133,8 @@ img.d-block {
 #testimonials { 
   .card {
   background-image: linear-gradient(to right, black, rgb(177, 150, 0), black);
-  scroll-snap-stop: always;
+  scroll-snap-type: y proximity;
+  scroll-snap-stop: normal;
   scroll-snap-align: center;
     }
     .card-body {
@@ -149,10 +149,6 @@ img.d-block {
 }
 
 #majorServices {
-  .card {
-  scroll-snap-stop: always;
-  scroll-snap-align: center;
-  }
   .card-body {
     text-shadow: 2px 5px 20px rgb(255, 222, 182);
   }
