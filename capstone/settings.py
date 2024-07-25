@@ -87,6 +87,7 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+POSTGRES_LOCALLY = False
 
 DATABASES = {
     'default': {
@@ -95,10 +96,22 @@ DATABASES = {
     }
 }
 
+if POSTGRES_LOCALLY:
+    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
-# POSTGRES_LOCALLY = False
-# if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
-#     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
+
+#Email sending
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587  
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = env('EMAIL_ADDRESS')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') 
+    DEFAULT_FROM_EMAIL = 'Radiants Pugi'    
+    ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 AUTH_USER_MODEL = 'website.User'
@@ -134,18 +147,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-#Email sending
-if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587  
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = env('EMAIL_ADDRESS')
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') 
-    DEFAULT_FROM_EMAIL = 'Radiants Pugi'    
-    ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -183,35 +185,35 @@ def my_view(request, arg1, arg):
         logger.error('Something went wrong!')
 
 #settings.py
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-#             'datefmt' : "%d/%b/%Y %H:%M:%S"
-#         },
-#         'simple': {
-#             'format': '%(levelname)s %(message)s'
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'mysite.log',
-#             'formatter': 'verbose'
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers':['file'],
-#             'propagate': True,
-#             'level':'DEBUG',
-#         },
-#         'MYAPP': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#         },
-#     }
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'MYAPP': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}
