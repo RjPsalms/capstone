@@ -14,36 +14,19 @@
   </div>
   {% endif %} -->
 
-  <div class="container-fluid">
-    <section id="hero">
-      <div id="carouselExampleFade" class="carousel slide carousel-fade d-flex align-items-center justify-content-center" data-bs-ride="carousel">
-        <div class="container c-aes">
-          <h1 class="AES">RadiantS</h1>
-          <h3 class="by">by Ganda</h3>
-          <h5 class="by">Beauty At Its Finest</h5>
+  <div class="container">
+    <div class="container-fluid">
+      <section>
+        <div class="gynelogo">
+          <img src="{% static 'img/GYNEiconGOLD.png' %}" class="d-block w-75 mt-5 mx-auto mb-5 " alt="GYNECO LOGO" />
         </div>
-
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="{% static 'img/tour (1).jpg' %}" class="d-block w-100 rounded-3" alt="interior1" />
-          </div>
-          <div class="carousel-item">
-            <img src="{% static 'img/tour (3).jpg' %}" class="d-block w-100 rounded-3" alt="interior1" />
-          </div>
-          <div class="carousel-item">
-            <img src="{% static 'img/abst (2).jpg' %}"class="d-block w-100 rounded-3" alt="interior1" />
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon visually-hidden" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-          <span class="carousel-control-next-icon visually-hidden" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </section>
+        
+        <!-- <div class="heroimg">
+          <img src="{% static 'img/tour (1).jpg' %}" class="w-100" alt="interior1" />
+        </div> -->
+      
+      </section>
+    </div>
 
     <section id="welcome">  
       <div class="card text-center bg-transparent border-0">
@@ -61,8 +44,8 @@
           </ul>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Welcome to Radiant!</h5>
-          <p class="card-text">Radiant Aesthetics Clinic promises more than flawless skin; we promise a journey toward self-love and confidence. Because when you feel beautiful, you radiate beauty. Come, let’s embark on this journey together. Book your consultation today!.</p>
+          <h5 class="card-title">Welcome to GYNECO!</h5>
+          <p class="card-text mx-auto" style="width:70ch;">Gyneco Aesthetics Clinic promises more than flawless skin; we promise a journey toward self-love and confidence. Because when you feel beautiful, you radiate beauty. Come, let’s embark on this journey together. Book your consultation today!.</p>
           <a href="{% url 'booking' %}" class="btn btn-outline-secondary">Book an appointment</a>
         </div>
       </div>

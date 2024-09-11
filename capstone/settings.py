@@ -23,7 +23,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-#DEBUG = False
+# DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost:8000', '.onrender.com']
 
@@ -107,7 +107,7 @@ DATABASES = {
 }
 
 
-POSTGRES_LOCALLY = True
+POSTGRES_LOCALLY = False
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
@@ -189,7 +189,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def my_view(request, arg1, arg):
-    if bad_mojo:
+    if bad_mojo: # type: ignore
         # Log an error message
         logger.error('Something went wrong!')
 
