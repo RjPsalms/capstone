@@ -87,17 +87,7 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'URL': 'postgresql://postgres:ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT@postgres.railway.internal:5432/railway',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'ieKYfJCeLoQtGNHAFHezaXNvXGhgrWdT',
-#         'HOST': 'postgres.railway.internal',
-#         'PORT': 5432
-#     }
-# }
+POSTGRES_LOCALLY = True
 
 DATABASES = {
     'default': {
@@ -106,10 +96,22 @@ DATABASES = {
     }
 }
 
-
-POSTGRES_LOCALLY = False
-if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+if POSTGRES_LOCALLY:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
+
+
+#Email sending
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587  
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = env('EMAIL_ADDRESS')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') 
+    DEFAULT_FROM_EMAIL = 'Radiants Pugi'    
+    ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 AUTH_USER_MODEL = 'website.User'
@@ -145,18 +147,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-#Email sending
-if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587  
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = env('EMAIL_ADDRESS')
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') 
-    DEFAULT_FROM_EMAIL = 'Radiants Pugi'    
-    ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 
 # Static files (CSS, JavaScript, Images)
