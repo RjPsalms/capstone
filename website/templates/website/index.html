@@ -18,9 +18,9 @@
     <section id="hero">
       <div id="carouselExampleFade" class="carousel slide carousel-fade d-flex align-items-center justify-content-center" data-bs-ride="carousel">
         <div class="container c-aes">
-          <h1 class="AES">RadiantS</h1>
-          <h3 class="by">by Ganda</h3>
-          <h5 class="by">Beauty At Its Finest</h5>
+          <h1 class="AES">Gyneco</h1>
+          <h2 class="by mt-1">by Dr. Maria</h2>
+          <h3 class="by">Beauty At Its Finest</h3>
         </div>
 
         <div class="carousel-inner">
@@ -61,8 +61,8 @@
           </ul>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Welcome to Radiant!</h5>
-          <p class="card-text">Radiant Aesthetics Clinic promises more than flawless skin; we promise a journey toward self-love and confidence. Because when you feel beautiful, you radiate beauty. Come, let’s embark on this journey together. Book your consultation today!.</p>
+          <h5 class="card-title">Welcome to Gyneco!</h5>
+          <p class="card-text mx-auto" style="width: 75ch;">Gyneco Aesthetics Clinic promises more than flawless skin; we promise a journey toward self-love and confidence. Because when you feel beautiful, you radiate beauty. Come, let’s embark on this journey together. Book your consultation today!.</p>
           <a href="{% url 'booking' %}" class="btn btn-outline-secondary">Book an appointment</a>
         </div>
       </div>
@@ -70,10 +70,10 @@
 
 
     <br />
-    <hr /><br />
+    <hr class="my-5"/><br class="mt-5"/><br><br><br><br>
     <section id="testimonials">
       <h3 class="text-center">World Class Service</h3>
-      <h6 class="text-center mb-4">Hear from our celebrity clients:</h6>
+      <h6 class="text-center mb-5">Hear from our celebrity clients:</h6>
       <div class="container">
         <div class="card mb-3">
           <div class="row g-0 flex-row-reverse">
@@ -147,7 +147,8 @@
 
 
     <br />
-    <hr /><br />
+    <hr />
+    <br><br><br><br><br />
     <section id="majorServices">
       <h3 class="text-center">Major services</h3>
       <div class="container w-75 my-5">
@@ -221,10 +222,11 @@
     
 
     <br />
-    <hr /><br />
+    <hr />
+    <br><br><br><br><br />
     <section id="minorServices">
       <h3 class="text-center">Minor services</h3>
-      <div class="row card-group p-0 my-5 d-flex justify-content-center">
+      <div class="row card-group p-4 my-5 d-flex justify-content-center">
         <div class="col-6 card rounded-3 border-0">
           <img src="{% static 'img/serv (1).jpg' %}" class="card-img-top rounded-3" alt="..." />
           <div class="card-body text-center">
@@ -285,12 +287,12 @@
     <section id="staff">
       <div class="card-group">
         <h3 class="mx-auto">Our Professionals</h3>
-        <div class="row my-5">
+        <div class="row p-4 my-5">
           <div class="col-6 col-md-4 col-lg-3 p-lg-4">
             <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (1).jpg' %}" class="card-img-top" alt="..." /></a>
+              <a href="{% url 'staffs' %}"><img src="{% static 'img/dr. Maria.jpg' %}" class="card-img-top" alt="..." /></a>
               <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
+                <h5 class="card-title">Dr. Maria</h5>
                 <p class="card-text">Position/ PhD</p>
               </div>
               <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
@@ -298,9 +300,9 @@
           </div>
           <div class="col-6 col-md-4 col-lg-3 p-lg-4">
             <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (2).jpg' %}" class="card-img-top" alt="..." /></a>
+              <a href="{% url 'staffs' %}"><img src="{% static 'img/dr. Maria.jpg' %}" class="card-img-top" alt="..." /></a>
               <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
+                <h5 class="card-title">Dr. Moore</h5>
                 <p class="card-text">Position/ PhD.</p>
               </div>
               <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
@@ -308,71 +310,19 @@
           </div>
           <div class="col-6 col-md-4 col-lg-3 p-lg-4">
             <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (3).jpg' %}" class="card-img-top" alt="..." /></a>
+              <a href="{% url 'staffs' %}"><img src="{% static 'img/dr. Maria.jpg' %}" class="card-img-top" alt="..." /></a>
               <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
-                <p class="card-text">Profesional Tambay.</p>
-              </div>
-              <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-4 col-lg-3 p-lg-4">
-            <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (4).jpg' %}" class="card-img-top" alt="..." /></a>
-              <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
-                <p class="card-text">Position/ PhD</p>
-              </div>
-              <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
-            </div>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 p-lg-4">
-            <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (5).jpg' %}" class="card-img-top" alt="..." /></a>
-              <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
-                <p class="card-text">Position/ PhD.</p>
-              </div>
-              <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
-            </div>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 p-lg-4">
-            <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (6).jpg' %}" class="card-img-top" alt="..." /></a>
-              <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
-                <p class="card-text">Profesional Tambay.</p>
-              </div>
-              <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-4 col-lg-3 p-lg-4">
-            <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (7).jpg' %}" class="card-img-top" alt="..." /></a>
-              <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
-                <p class="card-text">Position/ PhD</p>
-              </div>
-              <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
-            </div>
-          </div>
-          <div class="col-6 col-md-4 col-lg-3 p-lg-4">
-            <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (8).jpg' %}" class="card-img-top" alt="..." /></a>
-              <div class="card-body">
-                <h5 class="card-title">Dr. Kwak kwak</h5>
-                <p class="card-text">Position/ PhD.</p>
+                <h5 class="card-title">Dr. Mary</h5>
+                <p class="card-text">Profesional Laser Technician.</p>
               </div>
               <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
             </div>
           </div>
           <div class="col-6 col-md-4 col-lg-3 mx-auto">
             <div class="card border-0">
-              <a href="{% url 'staffs' %}"><img src="{% static 'img/av (9).jpg' %}" class="card-img-top" alt="..." /></a>
+              <a href="{% url 'staffs' %}"><img src="{% static 'img/dr. Maria.jpg' %}" class="card-img-top" alt="..." /></a>
               <div class="card-body">
-                <h5 class="card-title">Dr. Boss Pogi</h5>
+                <h5 class="card-title">Dr. Boss</h5>
                 <p class="card-text">FOUNDER</p>
               </div>
               <a href="{% url 'booking' %}"><div class="card-footer">Book</div></a>
