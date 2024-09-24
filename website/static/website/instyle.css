@@ -93,13 +93,21 @@ img.d-block {
     font-family: "Mea Culpa", cursive;
     font-weight: 500;
     font-style: normal;
-    font-size: 15em;
+    font-size: 7rem;
     color: rgb(251, 220, 133);
     text-shadow: 2px 5px 20px #784614;
     animation: fade_in 1s;
     align-self: center;
+}
+
+@media screen and (min-width: 1080px) {
+  .AES {
+    font-size: 14rem;
+  }
 
 }
+
+
 .by {
     font-family: "Jost", sans-serif;
     font-optical-sizing: auto;
